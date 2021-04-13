@@ -23,16 +23,16 @@
                 <th>Gambar</th>
             </tr>
         </thead>
-    <tbody>
-        @foreach($articles as $a)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{$a->title}}</td>
-            <td>{{$a->content}}</td>
-            <td>{{$a->featured_image}}</td>
-        </tr>
-        @endforeach
-    </tbody>
+        <tbody>
+            @foreach($articles as $a)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{$a->title}}</td>
+                <td>{{$a->content}}</td>
+                <td>{{$a->featured_image}}</td>
+            </tr>
+            @endforeach
+        </tbody>
     </table>
 </body>
 </html>
