@@ -4,6 +4,7 @@
         <div class="container">
             <form action="/articles/{{$article->id}}" method="post" enctype="multipart/form-data">
             {{--  Kode tersebut akan memperbarui data article sesuai id yang diperoleh dari parameter URI di browser. --}}
+            @method('PUT')
             @csrf
                 <div class="form-group">
                     <label for="title">Judul</label>
