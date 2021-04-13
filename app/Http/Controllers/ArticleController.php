@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Articles;
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -39,7 +39,7 @@ class ArticleController extends Controller
             $image_name = $request->file('image')->store('images', 'public');
         }
 
-        Articles::create([
+        Article::create([
             'title' => $request->title,
             'content' => $request->content,
             'featured_image' => $image_name,
