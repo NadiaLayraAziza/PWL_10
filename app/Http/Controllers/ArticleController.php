@@ -78,7 +78,24 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // syntax untuk menemukan artikel berdasarkan id
+        $article = Article::find($id);
+
+        // setelah artikel ditemukan, maka akan dilakukan request sesuai masing-masing variabel
+        $article->title = $request->title;
+        $article->content = $request->content;
+
+        // jika file gambar pada artikel tersebut telah tersedia, maka file yang lama akan dihapus
+        if ($article->featured_image && file_exists(storage_path('app/public/' .$article->featured_image))) {
+            \Storage::delete(['public/' . $article->featured_image]);
+        }
+        // namun, jika file gambar masih belum ada, maka file baru yang diupload akan disimpan
+        $image_name = $request->file('image')->store('images', 'public');
+        $article->featured_image = $image_name;
+
+        // sytax untuk menyimpan perubahan setelah melakukan edit
+        $article->save();
+        return 'Artikel berhasil diubah';
     }
 
     /**
