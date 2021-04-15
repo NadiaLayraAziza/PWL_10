@@ -34,8 +34,15 @@
         @endforeach
     </table>
 
-    <div class="float-right my-2">
-        <a class="btn btn-success mt-3" href="{{ route('mahasiswa.index') }}">Kembali</a>
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="float-right my-2">
+                <a class="btn btn-success mt-3" href="{{ route('mahasiswa.index') }}">Kembali</a>
+            </div>
+            <div class="float-center my-2 text-center">
+                <a class="btn btn-danger mt-3" href="{{ route('mahasiswa.pdf',$Mahasiswa->Nim) }}">Cetak ke PDF</a>
+            </div>
+        </div>
     </div>
     
 @endsection
