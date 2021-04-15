@@ -124,6 +124,7 @@ class MahasiswaController extends Controller
         $request->validate([
             'Nim' => 'required',
             'Nama' => 'required',
+            'image' => 'required',
             'Tanggal_Lahir' => 'required',
             'kelas' => 'required',
             'Jurusan' => 'required',
@@ -132,6 +133,16 @@ class MahasiswaController extends Controller
         ]);
 
         $Mahasiswa = Mahasiswa::with('kelas')->where('Nim', $Nim)->first();
+
+        // jika file image tersebut telah tersedia, maka file yang lama akan dihapus
+        if ($Mahasiswa->image && file_exists(storage_path('app/public/' .$Mahasiswa->image))) 
+        {
+            \Storage::delete(['public/' . $Mahasiswa->image]);
+        }
+        // namun, jika file image masih belum ada, maka file baru yang diupload akan disimpan
+        $image_name = $request->file('image')->store('images', 'public');
+        $Mahasiswa->image = $image_name;
+        
         $Mahasiswa->Nim = $request->get('Nim');
         $Mahasiswa->Nama = $request->get('Nama');
         $Mahasiswa->Tanggal_Lahir = $request->get('Tanggal_Lahir');
