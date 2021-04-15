@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('articles', ArticleController::class);
 
 Route::get('/article/cetak_pdf', [ArticleController::class, 'cetak_pdf']);
+
+Route::resource('mahasiswa', MahasiswaController::class);
+
+Route::get('mahasiswa/nilai/{Nim}', [MahasiswaController::class, 'nilai'])->name('mahasiswa.nilai');
