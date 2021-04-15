@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Models\Mahasiswa;
 use App\Models\Kelas; 
 use App\Models\MataKuliah; 
@@ -142,7 +143,7 @@ class MahasiswaController extends Controller
         // namun, jika file image masih belum ada, maka file baru yang diupload akan disimpan
         $image_name = $request->file('image')->store('images', 'public');
         $Mahasiswa->image = $image_name;
-        
+
         $Mahasiswa->Nim = $request->get('Nim');
         $Mahasiswa->Nama = $request->get('Nama');
         $Mahasiswa->Tanggal_Lahir = $request->get('Tanggal_Lahir');
@@ -179,5 +180,12 @@ class MahasiswaController extends Controller
     {
         $Mahasiswa = Mahasiswa::with('kelas', 'matakuliah')->find($Nim);
         return view('users.nilai', compact('Mahasiswa'));
+    }
+
+    public function cetak_khs($Nim) 
+    {
+        $Mahasiswa = Mahasiswa::findOrFail($Nim);
+        $pdf = PDF::loadview('users.khs_pdf',['Mahasiswa'=>$Mahasiswa]);
+        return $pdf->stream();
     }
 }
