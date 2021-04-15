@@ -50,6 +50,7 @@ class MahasiswaController extends Controller
         $request->validate([
             'Nim' => 'required',
             'Nama' => 'required',
+            'image' => 'required',
             'Tanggal_Lahir' => 'required',
             'kelas' => 'required',
             'Jurusan' => 'required',
@@ -57,11 +58,17 @@ class MahasiswaController extends Controller
             'Email' => 'required',
             ]);
 
+            if ($request->file('image')) 
+            {
+                $image_name = $request->file('image')->store('images', 'public');
+            }
+
             $kelas = Kelas::find($request->get('kelas'));
 
             $Mahasiswa = new Mahasiswa;
             $Mahasiswa->Nim = $request->get('Nim');
             $Mahasiswa->Nama = $request->get('Nama');
+            $Mahasiswa->image = $image_name;
             $Mahasiswa->Tanggal_Lahir = $request->get('Tanggal_Lahir');
             $Mahasiswa->Jurusan = $request->get('Jurusan');
             $Mahasiswa->No_Handphone = $request->get('No_Handphone');
